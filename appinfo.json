@@ -1,0 +1,32 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "yuri@galanter.net",
+    "longName": "Color Shadow",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "characterRegex": "[0-9]",
+                "file": "fonts/Typo Grotesk Black Demo.otf",
+                "name": "TYPO_GROTESK_60",
+                "trackingAdjust": 5,
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Color Shadow",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "499974b2-f5f4-40b7-8bab-12ce14b6559e",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
