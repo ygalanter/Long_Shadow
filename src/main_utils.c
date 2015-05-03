@@ -1,7 +1,7 @@
 #include <pebble.h>
 #include "main_utils.h"
 #include "effect_layer.h"  
-
+  
 
 TextLayer* create_text_layer(GRect coords, GFont font, GColor text_color, GColor bg_color, GTextAlignment text_align, Window *window) {
   TextLayer *text_layer = text_layer_create(coords);

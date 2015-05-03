@@ -1,7 +1,15 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_BG_COLOR": 5,
+        "KEY_H1_SHADOW_COLOR": 1,
+        "KEY_H2_SHADOW_COLOR": 2,
+        "KEY_M1_SHADOW_COLOR": 3,
+        "KEY_M2_SHADOW_COLOR": 4,
+        "KEY_SHADOW_DIRECTION": 0,
+        "KEY_TIME_COLOR": 6
+    },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "yuri@galanter.net",
     "longName": "Long Shadow",
@@ -31,7 +39,7 @@
     ],
     "uuid": "499974b2-f5f4-40b7-8bab-12ce14b6559e",
     "versionCode": 1,
-    "versionLabel": "1.2",
+    "versionLabel": "1.3",
     "watchapp": {
         "watchface": true
     }
