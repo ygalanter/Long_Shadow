@@ -51,8 +51,8 @@ void direct_shadow(uint8_t direction) {
       layer = effect_layer_get_layer(h2); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
       layer = effect_layer_get_layer(m2); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
     
-      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(0,-2,143, 20)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentRight);
-      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(2,146,142,20)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentLeft);
+      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(2,-2,140, 23)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentRight);
+      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(2,146,140,23)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentLeft);
     
       break;
     case SHADOW_DIRECTION_TO_BOTTOM_LEFT:
@@ -64,8 +64,8 @@ void direct_shadow(uint8_t direction) {
       layer = effect_layer_get_layer(h1); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
       layer = effect_layer_get_layer(m1); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
           
-      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(0,-2,143, 20)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentLeft);
-      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(2,146,142,20)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentRight);
+      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(2,-2,140, 23)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentLeft);
+      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(2,146,140,23)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentRight);
         
       break;
     case SHADOW_DIRECTION_TO_TOP_LEFT:
@@ -78,8 +78,8 @@ void direct_shadow(uint8_t direction) {
       layer = effect_layer_get_layer(h2); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
       layer = effect_layer_get_layer(h1); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
     
-      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(2,146,142,20)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentLeft);
-      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(0,-2,143, 20)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentRight);
+      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(2,146,140,23)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentLeft);
+      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(2,-2,140, 23)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentRight);
     
       break;
     case SHADOW_DIRECTION_TO_TOP_RIGHT:
@@ -92,8 +92,8 @@ void direct_shadow(uint8_t direction) {
       layer = effect_layer_get_layer(h2); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
       layer = effect_layer_get_layer(m2); layer_remove_from_parent(layer); layer_add_child(window_layer, layer);
     
-      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(2,146,142,20)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentRight);
-      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(0,-2,143, 20)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentLeft);
+      layer_set_frame(text_layer_get_layer(text_layer_date), GRect(2,146,140,23)); text_layer_set_text_alignment(text_layer_date, GTextAlignmentRight);
+      layer_set_frame(text_layer_get_layer(text_layer_battery), GRect(2,-2,140, 23)); text_layer_set_text_alignment(text_layer_battery, GTextAlignmentLeft);
       
       break;
   }  
@@ -197,7 +197,7 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     if (units_changed & DAY_UNIT) { // on day change - change date
       strftime(s_date, sizeof(s_date), "%a, %b %d", tick_time);
       text_layer_set_text(text_layer_date, s_date);
-    
+      
     }
   
 }
@@ -214,24 +214,24 @@ void handle_init(void) {
   //creating text layers
   #ifdef PBL_COLOR
     time_color = persist_read_int(KEY_TIME_COLOR)? (GColor){.argb = persist_read_int(KEY_TIME_COLOR)} : GColorWhite;
-    text_layer_hours = create_text_layer(GRect(0,16,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TYPO_GROTESK_60)), time_color, GColorClear, GTextAlignmentCenter, my_window);
-    text_layer_minutes = create_text_layer(GRect(0,70,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TYPO_GROTESK_60)), time_color, GColorClear, GTextAlignmentCenter, my_window);
-    text_layer_date = create_text_layer(GRect(0,-2,143,20), fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD), persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, GColorClear, GTextAlignmentRight, my_window);
-    text_layer_battery = create_text_layer(GRect(2,146,142,20), fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD), persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, GColorClear, GTextAlignmentLeft, my_window); 
+    text_layer_hours = create_text_layer(GRect(0,22,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), time_color, GColorClear, GTextAlignmentCenter, my_window);
+    text_layer_minutes = create_text_layer(GRect(0,73,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), time_color, GColorClear, GTextAlignmentCenter, my_window);
+    text_layer_date = create_text_layer(GRect(2,-2,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, GColorClear, GTextAlignmentRight, my_window);
+    text_layer_battery = create_text_layer(GRect(2,146,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, GColorClear, GTextAlignmentLeft, my_window); 
   #else
-    text_layer_hours = create_text_layer(GRect(0,16,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TYPO_GROTESK_60)), GColorWhite, GColorClear, GTextAlignmentCenter, my_window);
-    text_layer_minutes = create_text_layer(GRect(0,70,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_TYPO_GROTESK_60)), GColorWhite, GColorClear, GTextAlignmentCenter, my_window);
-    text_layer_date = create_text_layer(GRect(0,-2,143, 20), fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD), GColorWhite, GColorClear, GTextAlignmentRight, my_window);
-    text_layer_battery = create_text_layer(GRect(2,146,142,20), fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD), GColorWhite, GColorClear, GTextAlignmentLeft, my_window);
+    text_layer_hours = create_text_layer(GRect(0,21,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), GColorWhite, GColorClear, GTextAlignmentCenter, my_window);
+    text_layer_minutes = create_text_layer(GRect(0,75,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), GColorWhite, GColorClear, GTextAlignmentCenter, my_window);
+    text_layer_date = create_text_layer(GRect(2,-2,140, 23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), GColorWhite, GColorClear, GTextAlignmentRight, my_window);
+    text_layer_battery = create_text_layer(GRect(2,146,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), GColorWhite, GColorClear, GTextAlignmentLeft, my_window);
   #endif
  
   
   //creating shadow layers
   #ifdef PBL_COLOR
-    h1 = create_shadow_layer(GRect(10,25,51,60), time_color, persist_read_int(KEY_H1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H1_SHADOW_COLOR)} : GColorBrilliantRose, 70, 70, 1, &oh1, my_window);
-    h2 = create_shadow_layer(GRect(64,25,51,60), time_color, persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, 70, 70, 1, &oh2, my_window);
-    m1 = create_shadow_layer(GRect(10,85,51,60), time_color, persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, 70, 70, 1, &om1, my_window);
-    m2 = create_shadow_layer(GRect(64,85,51,60), time_color, persist_read_int(KEY_M2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M2_SHADOW_COLOR)}: GColorLiberty, 70, 70, 1, &om2, my_window);
+    h1 = create_shadow_layer(GRect(39,37,32,45), time_color, persist_read_int(KEY_H1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H1_SHADOW_COLOR)} : GColorBrilliantRose, 140, 140, 1, &oh1, my_window);
+    h2 = create_shadow_layer(GRect(73,37,32,45), time_color, persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, 140, 140, 1, &oh2, my_window);
+    m1 = create_shadow_layer(GRect(39,91,32,45), time_color, persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, 120, 140, 1, &om1, my_window);
+    m2 = create_shadow_layer(GRect(73,91,32,45), time_color, persist_read_int(KEY_M2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M2_SHADOW_COLOR)}: GColorLiberty, 140, 140, 1, &om2, my_window);
   #else
     
     // creating array for "visited" pixels and assigning it to shadow effect parameter
@@ -241,10 +241,10 @@ void handle_init(void) {
     om1.aplite_visited = aplite_visited;
     om2.aplite_visited = aplite_visited;
     
-    h1 = create_shadow_layer(GRect(10,25,51,60), GColorWhite, GColorWhite, 120, 120, 1, &oh1, my_window);
-    h2 = create_shadow_layer(GRect(64,25,51,60), GColorWhite, GColorBlack, 120, 120, 1, &oh2, my_window);
-    m1 = create_shadow_layer(GRect(10,85,51,60), GColorWhite, GColorBlack, 100, 100, 1, &om1, my_window);
-    m2 = create_shadow_layer(GRect(64,85,51,60), GColorWhite, GColorWhite, 100, 100, 1, &om2, my_window);
+    h1 = create_shadow_layer(GRect(39,37,32,45), GColorWhite, GColorWhite, 140, 140, 1, &oh1, my_window);
+    h2 = create_shadow_layer(GRect(73,37,32,45), GColorWhite, GColorBlack, 140, 140, 1, &oh2, my_window);
+    m1 = create_shadow_layer(GRect(39,91,32,45), GColorWhite, GColorBlack, 140, 140, 1, &om1, my_window);
+    m2 = create_shadow_layer(GRect(73,91,32,45), GColorWhite, GColorWhite, 140, 140, 1, &om2, my_window);
   #endif
     
     
