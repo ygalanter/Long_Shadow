@@ -36,9 +36,9 @@ void direct_shadow(uint8_t direction) {
   Layer *window_layer = window_get_root_layer(my_window);
   
   #ifdef PBL_COLOR
-    uint8_t length = 80;  
+    uint8_t length = 90;  
   #else 
-    uint8_t length = 120;
+    uint8_t length = 110;
   #endif
     
   switch (direction) {
@@ -228,10 +228,10 @@ void handle_init(void) {
   
   //creating shadow layers
   #ifdef PBL_COLOR
-    h1 = create_shadow_layer(GRect(39,37,32,45), time_color, persist_read_int(KEY_H1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H1_SHADOW_COLOR)} : GColorBrilliantRose, 140, 140, 1, &oh1, my_window);
-    h2 = create_shadow_layer(GRect(73,37,32,45), time_color, persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, 140, 140, 1, &oh2, my_window);
-    m1 = create_shadow_layer(GRect(39,91,32,45), time_color, persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, 120, 140, 1, &om1, my_window);
-    m2 = create_shadow_layer(GRect(73,91,32,45), time_color, persist_read_int(KEY_M2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M2_SHADOW_COLOR)}: GColorLiberty, 140, 140, 1, &om2, my_window);
+    h1 = create_shadow_layer(GRect(39,37,32,45), time_color, persist_read_int(KEY_H1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H1_SHADOW_COLOR)} : GColorBrilliantRose, 90, 90, 1, &oh1, my_window);
+    h2 = create_shadow_layer(GRect(73,37,32,45), time_color, persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, 90, 90, 1, &oh2, my_window);
+    m1 = create_shadow_layer(GRect(39,91,32,45), time_color, persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, 90, 90, 1, &om1, my_window);
+    m2 = create_shadow_layer(GRect(73,91,32,45), time_color, persist_read_int(KEY_M2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M2_SHADOW_COLOR)}: GColorLiberty, 90, 90, 1, &om2, my_window);
   #else
     
     // creating array for "visited" pixels and assigning it to shadow effect parameter
@@ -241,10 +241,10 @@ void handle_init(void) {
     om1.aplite_visited = aplite_visited;
     om2.aplite_visited = aplite_visited;
     
-    h1 = create_shadow_layer(GRect(39,37,32,45), GColorWhite, GColorWhite, 140, 140, 1, &oh1, my_window);
-    h2 = create_shadow_layer(GRect(73,37,32,45), GColorWhite, GColorBlack, 140, 140, 1, &oh2, my_window);
-    m1 = create_shadow_layer(GRect(39,91,32,45), GColorWhite, GColorBlack, 140, 140, 1, &om1, my_window);
-    m2 = create_shadow_layer(GRect(73,91,32,45), GColorWhite, GColorWhite, 140, 140, 1, &om2, my_window);
+    h1 = create_shadow_layer(GRect(39,37,32,45), GColorWhite, GColorWhite, 110, 110, 1, &oh1, my_window);
+    h2 = create_shadow_layer(GRect(73,37,32,45), GColorWhite, GColorBlack, 110, 110, 1, &oh2, my_window);
+    m1 = create_shadow_layer(GRect(39,91,32,45), GColorWhite, GColorBlack, 110, 110, 1, &om1, my_window);
+    m2 = create_shadow_layer(GRect(73,91,32,45), GColorWhite, GColorWhite, 110, 110, 1, &om2, my_window);
   #endif
     
     
