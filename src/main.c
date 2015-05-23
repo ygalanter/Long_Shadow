@@ -19,7 +19,7 @@ Window *my_window;
 TextLayer *text_layer_hours, *text_layer_minutes, *text_layer_date, *text_layer_battery;
 EffectLayer *h1, *h2, *m1, *m2;
 EffectOffset oh1, oh2, om1, om2;
-GColor time_color;
+GColor time_color, bg_color; 
 
 char s_hours[3], s_minutes[3];
 char s_date[] = "Fri, Apr 24";
@@ -117,12 +117,10 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context) {
         case KEY_H2_SHADOW_COLOR:
            persist_write_int(KEY_H2_SHADOW_COLOR, t->value->uint8);
            oh2.offset_color = (GColor){.argb =t->value->uint8};
-           text_layer_set_text_color(text_layer_date, (GColor){.argb =t->value->uint8});
            break;
         case KEY_M1_SHADOW_COLOR:
            persist_write_int(KEY_M1_SHADOW_COLOR, t->value->uint8);
            om1.offset_color = (GColor){.argb =t->value->uint8};
-           text_layer_set_text_color(text_layer_battery, (GColor){.argb =t->value->uint8});
            break;
         case KEY_M2_SHADOW_COLOR:
            persist_write_int(KEY_M2_SHADOW_COLOR, t->value->uint8);
@@ -130,11 +128,17 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context) {
            break;
          case KEY_BG_COLOR:
            persist_write_int(KEY_BG_COLOR, t->value->uint8);
+      
+           text_layer_set_text_color(text_layer_date, color_inverted((GColor){.argb =t->value->uint8}));
+           text_layer_set_text_color(text_layer_battery, color_inverted((GColor){.argb =t->value->uint8}));
+         
            window_set_background_color(my_window,  (GColor){.argb =t->value->uint8});
          case KEY_TIME_COLOR:
            persist_write_int(KEY_TIME_COLOR, t->value->uint8);
+ 
            text_layer_set_text_color(text_layer_hours, (GColor){.argb =t->value->uint8});
            text_layer_set_text_color(text_layer_minutes, (GColor){.argb =t->value->uint8}); 
+      
            oh1.orig_color = (GColor){.argb =t->value->uint8};
            oh2.orig_color = (GColor){.argb =t->value->uint8};
            om1.orig_color = (GColor){.argb =t->value->uint8};
@@ -206,7 +210,8 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 void handle_init(void) {
   my_window = window_create();
   #ifdef PBL_COLOR
-    window_set_background_color(my_window,  persist_read_int(KEY_BG_COLOR) ? (GColor){.argb =  persist_read_int(KEY_BG_COLOR) }: GColorYellow);
+    bg_color =  persist_read_int(KEY_BG_COLOR) ? (GColor){.argb =  persist_read_int(KEY_BG_COLOR) }: GColorYellow;
+    window_set_background_color(my_window, bg_color );
   #else
     window_set_background_color(my_window, GColorBlack);
   #endif
@@ -216,8 +221,8 @@ void handle_init(void) {
     time_color = persist_read_int(KEY_TIME_COLOR)? (GColor){.argb = persist_read_int(KEY_TIME_COLOR)} : GColorWhite;
     text_layer_hours = create_text_layer(GRect(0,22,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), time_color, GColorClear, GTextAlignmentCenter, my_window);
     text_layer_minutes = create_text_layer(GRect(0,73,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), time_color, GColorClear, GTextAlignmentCenter, my_window);
-    text_layer_date = create_text_layer(GRect(2,-2,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), persist_read_int(KEY_H2_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_H2_SHADOW_COLOR)} : GColorPurpureus, GColorClear, GTextAlignmentRight, my_window);
-    text_layer_battery = create_text_layer(GRect(2,146,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), persist_read_int(KEY_M1_SHADOW_COLOR)? (GColor){.argb = persist_read_int(KEY_M1_SHADOW_COLOR)}: GColorMayGreen, GColorClear, GTextAlignmentLeft, my_window); 
+    text_layer_date = create_text_layer(GRect(2,-2,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), color_inverted(bg_color) , GColorClear, GTextAlignmentRight, my_window);
+    text_layer_battery = create_text_layer(GRect(2,146,140,23), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_PROTOTYPE_18)), color_inverted(bg_color), GColorClear, GTextAlignmentLeft, my_window); 
   #else
     text_layer_hours = create_text_layer(GRect(0,21,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), GColorWhite, GColorClear, GTextAlignmentCenter, my_window);
     text_layer_minutes = create_text_layer(GRect(0,75,144,70), fonts_load_custom_font(resource_get_handle(RESOURCE_ID_UBUNTU_B_60)), GColorWhite, GColorClear, GTextAlignmentCenter, my_window);
@@ -275,7 +280,8 @@ void handle_deinit(void) {
   text_layer_destroy(text_layer_hours);
   text_layer_destroy(text_layer_minutes);
   text_layer_destroy(text_layer_date);
-  
+  text_layer_destroy(text_layer_battery);
+    
   effect_layer_destroy(h1); effect_layer_destroy(h2);
   effect_layer_destroy(m1); effect_layer_destroy(m2);
   
@@ -283,10 +289,11 @@ void handle_deinit(void) {
     free(aplite_visited);
   #endif
     
-  window_destroy(my_window);
   tick_timer_service_unsubscribe();
   battery_state_service_unsubscribe();
   app_message_deregister_callbacks();
+ 
+  window_destroy(my_window);
 }
 
 int main(void) {

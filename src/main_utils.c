@@ -1,6 +1,20 @@
 #include <pebble.h>
 #include "main_utils.h"
-#include "effect_layer.h"  
+#include "effect_layer.h"
+  
+  
+GColor color_inverted(GColor source) {
+    GColor inverted = source;
+  if(gcolor_equal(source, GColorBlack)) 
+    inverted= GColorWhite;
+  if(gcolor_equal(source, GColorWhite))
+    inverted= GColorBlack;
+  #ifdef PBL_COLOR
+    if(!gcolor_equal(source, GColorClear)) //GColorClear should not change
+      inverted.argb= source.argb ^ 0b00111111;
+  #endif
+  return inverted;
+}   
   
 
 TextLayer* create_text_layer(GRect coords, GFont font, GColor text_color, GColor bg_color, GTextAlignment text_align, Window *window) {

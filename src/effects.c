@@ -366,6 +366,9 @@ void effect_shadow(GContext* ctx, GRect position, void* param) {
   #ifndef PBL_COLOR
     uint8_t draw_color = gcolor_equal(shadow->offset_color, GColorWhite)? 1 : 0;
     uint8_t skip_color = gcolor_equal(shadow->orig_color, GColorWhite)? 1 : 0;
+  #else
+    // if background color is equal shadow color - don't draw shadow
+    // if (gcolor_equal(shadow->, shadow->))
   #endif
   
    //capturing framebuffer bitmap
