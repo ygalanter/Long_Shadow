@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Color Shadow Config</title>
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link type="text/css" rel="stylesheet" href="color_shadow_config.css" />
+    <link type="text/css" rel="stylesheet" href="spectrum.css" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="spectrum.js"></script>
+    <script type="text/javascript" src="gcolor.js"></script>
+    <script type="text/javascript" src="color_shadow_config.js"></script>
+</head>
+<body style="position:relative; left:5px;">
+
+    <p id="ptblColorSelection" style="display:none">
+        <span class="label">Select Colors</span>
+    </p>
+    <table id="tblColorSelection" style="display:none">
+        <tr>
+            <td><label><input name="bgcolor" id="bgcolor" class="picker">&nbsp;Background</label></td>
+            <td><label><input name="timecolor" id="timecolor" class="picker">&nbsp;Time</label></td>
+        </tr>
+        <tr>
+            <td><label><input name="h1shadowcolor" id="h1shadowcolor" class="picker">&nbsp;1st hr shadow</label></td>
+            <td><label><input name="h2shadowcolor" id="h2shadowcolor" class="picker">&nbsp;2nd hr shadow</label></td>
+        </tr>
+        <tr>
+            <td><label><input name="m1shadowcolor" id="m1shadowcolor" class="picker">&nbsp;1st min shadow</label></td>
+            <td><label><input name="m2shadowcolor" id="m2shadowcolor" class="picker">&nbsp;2nd min shadow</label></td>
+        </tr>
+
+    </table>
+
+    <div id="main" style="display:none">
+        <p>
+            <span class="label">Select shadow direction</span>
+        </p>
+        <table id="tblDir">
+            <tr>
+                <td title="To top left">
+                    <div style="width: 0; height: 0;border-top: 50px solid transparent; border-right: 50px solid transparent;"></div>
+                    <input type="radio" name="rdDir" value="3" style="top:-45px; left: -7px" onclick="changeShadowDirection(SHADOW.DIRECTON.TO_TOP_LEFT);" />
+                </td>
+                <td td title="To top right">
+
+                    <div style="width: 0; height: 0; border-top: 50px solid transparent; border-left: 50px solid transparent;"></div>
+                    <input type="radio" name="rdDir" value="4" style="top:-45px; left: 7px" onclick="changeShadowDirection(SHADOW.DIRECTON.TO_TOP_RIGHT);" />
+                </td>
+            </tr>
+
+            <tr></tr>
+
+
+            <tr>
+                <td title="To bottom left">
+                    <div style="width: 0; height: 0;border-bottom: 50px solid transparent;border-right: 50px solid transparent;"></div>
+                    <input type="radio" name="rdDir" value="2" style="top:-25px; left: -7px" onclick="changeShadowDirection(SHADOW.DIRECTON.TO_BOTTOM_LEFT);" />
+                </td>
+
+                <td title="To bottom right">
+
+                    <div style="width: 0; height: 0; border-bottom: 50px solid transparent;border-left: 50px solid transparent;"></div>
+                    <input type="radio" name="rdDir" value="1" style="top:-25px; left: 7px" checked="checked" onclick="changeShadowDirection(SHADOW.DIRECTON.TO_BOTTOM_RIGHT);" />
+                </td>
+            </tr>
+        </table>
+
+        <div class="screen number">
+            <span id="h1">2</span>
+            <span id="h2">0</span>
+            <span id="m1">0</span>
+            <span id="m2">3</span>
+        </div>
+
+        <img id="imgpebble" style="position:relative;top:-506px;left:23px;z-index:10" />
+
+        <div id="codecont" style="display:none;position:relative;top:-506px;width:97%">
+            <span class="label">Load preset theme</span>
+            <select id="selThemes">
+                <option value='' selected></option>
+                <option value='{"bgcolor":203,"timecolor":255,"h1shadowcolor":240,"h2shadowcolor":194,"m1shadowcolor":194,"m2shadowcolor":240,"shadowdirecton":4}'>'murica</option>
+                <option value='{"bgcolor":192,"timecolor":193,"h1shadowcolor":252,"h2shadowcolor":252,"m1shadowcolor":252,"m2shadowcolor":252,"shadowdirecton":2}'>Gotham City</option>
+                <option value='{"bgcolor":252,"timecolor":255,"h1shadowcolor":247,"h2shadowcolor":225,"m1shadowcolor":200,"m2shadowcolor":194,"shadowdirecton":1}'>LG G Stock</option>
+                <option value='{"bgcolor":192,"timecolor":255,"h1shadowcolor":243,"h2shadowcolor":207,"m1shadowcolor":207,"m2shadowcolor":243,"shadowdirecton":1}'>Miami</option>
+                <option value='{"bgcolor":192,"timecolor":248,"h1shadowcolor":192,"h2shadowcolor":192,"m1shadowcolor":192,"m2shadowcolor":241,"shadowdirecton":1}'>Minimum Streak</option>
+                <option value='{"bgcolor":195,"timecolor":192,"h1shadowcolor":240,"h2shadowcolor":240,"m1shadowcolor":240,"m2shadowcolor":240,"shadowdirecton":4}'>Spiderman</option>
+                <option value='{"bgcolor":234,"timecolor":255,"h1shadowcolor":192,"h2shadowcolor":192,"m1shadowcolor":192,"m2shadowcolor":192,"shadowdirecton":3}'>Sundial</option>
+            </select>
+        </div>
+
+        <div id="presetcont" style="display:none;position:relative;top:-506px;width:97%">
+            <span class="label">Code</span>
+            <textarea id="code" rows="3"></textarea>
+            <input id="xbtnApplyCode" type="button" value="Apply">
+        </div>
+
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="position:relative;top:-500px" id="xForm">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="2J4R2PMZAAQWQ">
+            <br />
+
+            <input id="xbtnSave" type="button" value="Save" style="margin-right:30px">
+            <input id="xbtnCancel" type="button" value="Cancel" style="margin-right:30px">
+            <input type="button" value="My Starbucks fund" onclick="$('#xForm').submit(); return true"  >
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            <div style="font-size:small; padding-top:3px;width:98%">
+                If you like this watchface and would like to see it further developed as well as other wonderful Pebble apps and faces created, please know - I run on coffee. It's an essential fuel for inspiration and creativity. So if you click the Fund button above (or the ad below) - I won't run out of fuel :) Thanks!
+            </div>
+            <p>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Pebble Config -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8184318363505287"
+                     data-ad-slot="7086382952"
+                     data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </p>
+        </form>
+
+    </div>
+
+</body>
+</html>
