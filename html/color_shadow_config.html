@@ -98,15 +98,13 @@
             <input id="xbtnApplyCode" type="button" value="Apply">
         </div>
 
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="position:relative;top:-500px" id="xForm">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="2J4R2PMZAAQWQ">
+        <div style="position:relative;top:-500px" id="xForm">
+          
             <br />
 
             <input id="xbtnSave" type="button" value="Save" style="margin-right:30px">
             <input id="xbtnCancel" type="button" value="Cancel" style="margin-right:30px">
-            <input type="button" value="My Starbucks fund" onclick="$('#xForm').submit(); return true"  >
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            <input type="button" value="My Starbucks fund" class="item-button" name="submit" onclick="location.href='https://www.paypal.me/yuriygalanter';">
             <div style="font-size:small; padding-top:3px;width:98%">
                 If you like this watchface and would like to see it further developed as well as other wonderful Pebble apps and faces created, please know - I run on coffee. It's an essential fuel for inspiration and creativity. So if you click the Fund button above (or the ad below) - I won't run out of fuel :) Thanks!
             </div>
@@ -122,7 +120,7 @@
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </p>
-        </form>
+        </div>
 
     </div>
 
