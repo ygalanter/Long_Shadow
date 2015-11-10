@@ -28,6 +28,18 @@ char buffer_battery[]="100%";
 #ifndef PBL_COLOR //for Aplite - defining array that would hold set pixels (for Shadow effect)
   uint8_t *aplite_visited;
 #endif
+
+
+#ifndef PBL_SDK_2
+static void app_focus_changed(bool focused) {
+  if (focused) { // on resuming focus - restore background
+    layer_mark_dirty(effect_layer_get_layer(h1));
+  }
+}
+#endif
+
+
+
   
 // changes shadows direction
 void direct_shadow(uint8_t direction) {
@@ -230,6 +242,15 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 
 void handle_init(void) {
+  
+  #ifndef PBL_SDK_2
+  // need to catch when app resumes focus after notification, otherwise background won't restore
+  app_focus_service_subscribe_handlers((AppFocusHandlers){
+    .did_focus = app_focus_changed
+  });
+  #endif
+
+  
   my_window = window_create();
   #ifdef PBL_COLOR
     bg_color =  persist_read_int(KEY_BG_COLOR) ? (GColor){.argb =  persist_read_int(KEY_BG_COLOR) }: GColorYellow;
@@ -301,6 +322,11 @@ void handle_init(void) {
 }
 
 void handle_deinit(void) {
+  
+  #ifndef PBL_SDK_2
+    app_focus_service_unsubscribe();
+  #endif
+  
   text_layer_destroy(text_layer_hours);
   text_layer_destroy(text_layer_minutes);
   text_layer_destroy(text_layer_date);
