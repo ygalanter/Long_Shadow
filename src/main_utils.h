@@ -1,6 +1,6 @@
 #pragma once
 #include <pebble.h>    
-#include "effect_layer.h"
+#include <pebble-effect-layer/pebble-effect-layer.h>
 
 
 TextLayer* create_text_layer(GRect coords, GFont font, GColor text_color, GColor bg_color, GTextAlignment text_align, Window *window);

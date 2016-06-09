@@ -1,5 +1,5 @@
 #include <pebble.h>
-#include "effect_layer.h"
+#include <pebble-effect-layer/pebble-effect-layer.h>
 #include "main_utils.h"  
   
 #define KEY_SHADOW_DIRECTION 0
@@ -30,13 +30,13 @@ char buffer_battery[]="100%";
 #endif
 
 
-#ifndef PBL_SDK_2
-static void app_focus_changed(bool focused) {
-  if (focused) { // on resuming focus - restore background
-    layer_mark_dirty(effect_layer_get_layer(h1));
-  }
-}
-#endif
+// #ifndef PBL_SDK_2
+// static void app_focus_changed(bool focused) {
+//   if (focused) { // on resuming focus - restore background
+//     layer_mark_dirty(effect_layer_get_layer(h1));
+//   }
+// }
+// #endif
 
 
 
@@ -131,7 +131,9 @@ void direct_shadow(uint8_t direction) {
       
       break;
   }  
-    
+  
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Received direction: %d", direction); // for some reason this fixes disapering shadows
+  
 }  
   
   
@@ -243,12 +245,12 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 void handle_init(void) {
   
-  #ifndef PBL_SDK_2
-  // need to catch when app resumes focus after notification, otherwise background won't restore
-  app_focus_service_subscribe_handlers((AppFocusHandlers){
-    .did_focus = app_focus_changed
-  });
-  #endif
+//   #ifndef PBL_SDK_2
+//   // need to catch when app resumes focus after notification, otherwise background won't restore
+//   app_focus_service_subscribe_handlers((AppFocusHandlers){
+//     .did_focus = app_focus_changed
+//   });
+//   #endif
 
   
   my_window = window_create();
@@ -317,15 +319,15 @@ void handle_init(void) {
   
   // subscribing to JS messages
   app_message_register_inbox_received(in_recv_handler);
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+  app_message_open(500, 500);
   
 }
 
 void handle_deinit(void) {
   
-  #ifndef PBL_SDK_2
-    app_focus_service_unsubscribe();
-  #endif
+//   #ifndef PBL_SDK_2
+//     app_focus_service_unsubscribe();
+//   #endif
   
   text_layer_destroy(text_layer_hours);
   text_layer_destroy(text_layer_minutes);

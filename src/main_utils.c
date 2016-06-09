@@ -1,6 +1,6 @@
 #include <pebble.h>
 #include "main_utils.h"
-#include "effect_layer.h"
+#include <pebble-effect-layer/pebble-effect-layer.h>
   
   
 GColor color_inverted(GColor source) {

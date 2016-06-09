@@ -1,0 +1,57 @@
+{
+    "author": "yuri@galanter.net",
+    "dependencies": {
+        "pebble-effect-layer": "^1.1.0"
+    },
+    "keywords": [],
+    "name": "long-shadow",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "Long Shadow",
+        "enableMultiJS": true,
+        "messageKeys": {
+            "KEY_BG_COLOR": 5,
+            "KEY_H1_SHADOW_COLOR": 1,
+            "KEY_H2_SHADOW_COLOR": 2,
+            "KEY_M1_SHADOW_COLOR": 3,
+            "KEY_M2_SHADOW_COLOR": 4,
+            "KEY_SHADOW_DIRECTION": 0,
+            "KEY_TIME_COLOR": 6
+        },
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/menu_bw.png",
+                    "menuIcon": true,
+                    "name": "MENU",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "fonts/Prototype.ttf",
+                    "name": "PROTOTYPE_18",
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[0-9]",
+                    "file": "fonts/Ubuntu-B.ttf",
+                    "name": "UBUNTU_B_60",
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "499974b2-f5f4-40b7-8bab-12ce14b6559e",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "2.2.0"
+}
